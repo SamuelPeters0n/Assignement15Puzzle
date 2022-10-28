@@ -32,6 +32,7 @@ public class PuzzleBoard extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        GameMechanic gm = new GameMechanic();
+        gm.ButtonMover(e, allButtons);
     }
 }
