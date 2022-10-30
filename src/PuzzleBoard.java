@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class PuzzleBoard extends JFrame implements ActionListener {
 
@@ -13,10 +15,16 @@ public class PuzzleBoard extends JFrame implements ActionListener {
 
     PuzzleBoard() {
 
+        // Shuffle list to place buttons in random locations
+        int i = 0;
+        Collections.shuffle(allButtons);
+
         for (JButton element : allButtons) {
+            allButtons.get(i).setPostion(i+1);
             element.setPreferredSize(new Dimension(100, 100));
             element.addActionListener(this);
             p.add(element);
+            i++;
         }
         p.setLayout(new GridLayout(4, 4));
         add(p);
