@@ -15,7 +15,7 @@ import static javax.swing.SwingConstants.CENTER;
 public class PuzzleBoard extends JFrame implements ActionListener {
 
     JPanel p = new JPanel();
-    boolean cheatMode = true;
+    boolean cheatMode = false;
     String temp = "";
 
     JPanel functionPanel = new JPanel();
@@ -87,20 +87,36 @@ public class PuzzleBoard extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        GameMechanic gm = new GameMechanic();
-        gm.ButtonMover(e, allButtons);
 
-// räknar bara 15 knappar
-        for (int k = 0; k < allButtons.size() - 1; k++) {
-            temp += allButtons.get(k).getText();
-        }
-        if (temp.equals("123456789101112131415")) {
-            System.out.println("You win");
-
-            add(winPanel, NORTH);
-            winPanel.add(winLabel);
+        if (e.getSource() != retryButton) {
+            GameMechanic gm = new GameMechanic();
+            gm.ButtonMover(e, allButtons);
         }
 
+        if ( e.getSource() == retryButton){
+            for(int rNr = 0; rNr < allButtons.size()-1; rNr++){
+                allButtons.get(rNr).setPostion(rNr+1);
+                allButtons.get(rNr).setText(String.valueOf(rNr+1));
+                System.out.println("position: " + allButtons.get(rNr).getPostion() + "text: " + allButtons.get(rNr).getText());
+            }
+            allButtons.get(15).setPostion(16);
+            allButtons.get(15).setText("");
 
+        }
+
+
+
+
+            // Kollar efter vinst. Räknar 15 knappar för att få en matchande strängTxt.
+            for (int k = 0; k < allButtons.size() - 1; k++) {
+                temp += allButtons.get(k).getText();
+            }
+            if (temp.equals("123456789101112131415")) {
+                add(winPanel, NORTH);
+                winPanel.add(winLabel);
+            }
+
+
+        }
     }
-}
+
