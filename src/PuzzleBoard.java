@@ -56,15 +56,12 @@ public class PuzzleBoard extends JFrame implements ActionListener {
 
 
 
-
-
-
-
-            //FÖR ATT TESTA PLATSEN AV ALLA KNAPPAR // TA BORT SEN
+        //FÖR ATT TESTA PLATSEN AV ALLA KNAPPAR // TA BORT SEN
+        /*
             for (ButtonWithPositionVariable allButton : allButtons) {
             System.out.println("Txt: " + allButton.getText() + "num" + allButton.getPostion());
             }
-
+        */
 
 
 
@@ -102,13 +99,10 @@ public class PuzzleBoard extends JFrame implements ActionListener {
             gm.cheatMode(allButtons);
         }
 
-
-
-
         if (e.getSource() == retryButton) {
 
             gm.sortButtons(allButtons);
-           // Collections.shuffle(allButtons);
+            //Collections.shuffle(allButtons);
 
 
             for (ButtonWithPositionVariable allButton : allButtons) {
