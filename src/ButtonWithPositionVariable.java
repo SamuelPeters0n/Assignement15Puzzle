@@ -9,6 +9,10 @@ public class ButtonWithPositionVariable extends JButton {
         return postion;
     }
 
+    public void setPostion(int postion) {
+        this.postion = postion;
+    }
+
     //returns button with postion of given argument
     public static ButtonWithPositionVariable positionOf(int postion, ArrayList<ButtonWithPositionVariable> allButtons) {
         ButtonWithPositionVariable buttonToFind;
