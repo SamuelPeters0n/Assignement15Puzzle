@@ -79,9 +79,7 @@ public class PuzzleBoard extends JFrame implements ActionListener {
 
     }
 
-    public static void main(String[] arg) {
-        PuzzleBoard a = new PuzzleBoard();
-    }
+
 
 
     @Override
