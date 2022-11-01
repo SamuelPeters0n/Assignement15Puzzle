@@ -1,12 +1,18 @@
+import javax.imageio.plugins.tiff.BaselineTIFFTagSet;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class ButtonWithPositionVariable extends JButton {
     private int postion;
 
     public int getPostion() {
         return postion;
+    }
+
+    public void setPostion(int postion) {
+        this.postion = postion;
     }
 
     //returns button with postion of given argument
@@ -53,6 +59,14 @@ public class ButtonWithPositionVariable extends JButton {
         ArrayList<ButtonWithPositionVariable> allButtons = new ArrayList<ButtonWithPositionVariable>(Arrays.asList(button1, button2, button3, button4, button5, button6, button7,
                 button8, button9, button10, button11, button12, button13, button14, button15, button16));
         return allButtons;
+    }
+    public static void shuffle(ArrayList<ButtonWithPositionVariable> allButtons){
+        ArrayList <String> numbers = new ArrayList<>(Arrays.asList("1","2","3","4","5","6","7","8","9","10","11"
+                ,"12","13","14","15",""));
+        Collections.shuffle(numbers);
+        for (int i = 0; i < allButtons.size(); i++) {
+            allButtons.get(i).setText(numbers.get(i));
+        }
     }
 }
 
