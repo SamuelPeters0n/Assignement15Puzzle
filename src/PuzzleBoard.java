@@ -101,8 +101,7 @@ public class PuzzleBoard extends JFrame implements ActionListener {
 
         if (e.getSource() == retryButton) {
 
-            gm.sortButtons(allButtons);
-            //Collections.shuffle(allButtons);
+            ButtonWithPositionVariable.shuffle(allButtons);
 
 
             for (ButtonWithPositionVariable allButton : allButtons) {
