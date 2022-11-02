@@ -1,30 +1,29 @@
-import javax.imageio.plugins.tiff.BaselineTIFFTagSet;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
 public class ButtonWithPositionVariable extends JButton {
-    private int postion;
+    private int position;
 
-    public int getPostion() {
-        return postion;
+    public int getPosition() {
+        return position;
     }
 
-    public void setPostion(int postion) {
-        this.postion = postion;
+    public void setPosition(int position) {
+        this.position = position;
     }
 
-    //returns button with postion of given argument
-    public static ButtonWithPositionVariable positionOf(int postion, ArrayList<ButtonWithPositionVariable> allButtons) {
+    //returns button with position of given argument
+    public static ButtonWithPositionVariable positionOf(int position, ArrayList<ButtonWithPositionVariable> allButtons) {
         ButtonWithPositionVariable buttonToFind;
-        if (postion > 16 || postion < 1) {
+        if (position > 16 || position < 1) {
             ButtonWithPositionVariable button = new ButtonWithPositionVariable(10000000, "WRONGBUTTON");
             return button;
         }
 
         for (ButtonWithPositionVariable element : allButtons) {
-            if (element.getPostion() == postion) {
+            if (element.getPosition() == position) {
                 buttonToFind = element;
                 return buttonToFind;
             }
@@ -33,9 +32,9 @@ public class ButtonWithPositionVariable extends JButton {
         return null;
     }
 
-    public ButtonWithPositionVariable(int postion, String text) {
+    public ButtonWithPositionVariable(int position, String text) {
         super(text);
-        this.postion = postion;
+        this.position = position;
     }
 
     public static ArrayList<ButtonWithPositionVariable> createButtonsArrayList() {
@@ -60,6 +59,8 @@ public class ButtonWithPositionVariable extends JButton {
                 button8, button9, button10, button11, button12, button13, button14, button15, button16));
         return allButtons;
     }
+
+    // Gör en lista som sedan blandas, positionerna behåller sin plats.
     public static void shuffle(ArrayList<ButtonWithPositionVariable> allButtons){
         ArrayList <String> numbers = new ArrayList<>(Arrays.asList("1","2","3","4","5","6","7","8","9","10","11"
                 ,"12","13","14","15",""));
