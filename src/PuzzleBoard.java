@@ -14,8 +14,8 @@ import static javax.swing.SwingConstants.CENTER;
 
 public class PuzzleBoard extends JFrame implements ActionListener {
 
+    GameMechanic gm = new GameMechanic();
     JPanel p = new JPanel();
-    boolean cheatMode = true;
     String temp = "";
 
     JPanel functionPanel = new JPanel();
@@ -23,9 +23,10 @@ public class PuzzleBoard extends JFrame implements ActionListener {
 
     // Win
     JPanel winPanel = new JPanel();
-    JLabel winLabel = new JLabel("YOU WIN!");
+    JLabel winLabel = new JLabel("Let´s Puzzle!");
 
     JButton retryButton = new JButton("Retry");
+    JButton cheatButton = new JButton("Cheat");
     ArrayList<ButtonWithPositionVariable> allButtons = ButtonWithPositionVariable.createButtonsArrayList();
 
     PuzzleBoard() {
@@ -33,18 +34,19 @@ public class PuzzleBoard extends JFrame implements ActionListener {
 
         // adds retry button
         functionPanel.add(retryButton);
+        functionPanel.add(cheatButton);
+
         retryButton.addActionListener(this);
+        cheatButton.addActionListener(this);
+
+
 
 
         // Shuffle list to place buttons in random locations
+        Collections.shuffle(allButtons);
+
         int i = 0;
-        if (!cheatMode) {
-            Collections.shuffle(allButtons);
-        }
-
-
         for (JButton element : allButtons) {
-
             allButtons.get(i).setPostion(i + 1); //*
             element.setPreferredSize(new Dimension(100, 100));
             element.addActionListener(this);
@@ -52,20 +54,15 @@ public class PuzzleBoard extends JFrame implements ActionListener {
             i++;
         }
 
-        if (cheatMode) {
-            System.out.println("Cheatmode");
-            allButtons.get(14).setPostion(15);
-            allButtons.get(14).setText("");
-
-            allButtons.get(15).setPostion(16);
-            allButtons.get(15).setText("15");
 
 
-            // FÖR ATT TESTA PLATSEN AV ALLA KNAPPAR // TA BORT SEN
+        //FÖR ATT TESTA PLATSEN AV ALLA KNAPPAR // TA BORT SEN
+        /*
             for (ButtonWithPositionVariable allButton : allButtons) {
-                System.out.println("Txt: " + allButton.getText() + "num" + allButton.getPostion());
+            System.out.println("Txt: " + allButton.getText() + "num" + allButton.getPostion());
             }
-        }
+        */
+
 
 
         setLayout(new BorderLayout());
@@ -76,31 +73,58 @@ public class PuzzleBoard extends JFrame implements ActionListener {
         setSize(500, 500);
         setVisible(true);
 
+        add(winPanel, NORTH);
+        winPanel.add(winLabel);
+
 
     }
 
-    public static void main(String[] arg) {
-        PuzzleBoard a = new PuzzleBoard();
-    }
+
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        GameMechanic gm = new GameMechanic();
-        gm.ButtonMover(e, allButtons);
+        // Move buttons
+        if (e.getSource() != retryButton && e.getSource() != cheatButton) {
+            //  GameMechanic gm = new GameMechanic();
+            gm.ButtonMover(e, allButtons);
+        }
 
-// räknar bara 15 knappar
+        // Activate cheatMode
+        if (e.getSource() == cheatButton) {
+            gm.sortButtons(allButtons);
+            gm.cheatMode(allButtons);
+        }
+
+        if (e.getSource() == retryButton) {
+
+            ButtonWithPositionVariable.shuffle(allButtons);
+
+
+            for (ButtonWithPositionVariable allButton : allButtons) {
+                System.out.println("Txt: " + allButton.getText() + "num: " + allButton.getPostion());
+            }
+
+
+        }
+
+
+        // Kollar efter vinst. Räknar 15 knappar för att få en matchande strängTxt.
+        temp = "";
         for (int k = 0; k < allButtons.size() - 1; k++) {
             temp += allButtons.get(k).getText();
         }
-        if (temp.equals("123456789101112131415")) {
-            System.out.println("You win");
 
-            add(winPanel, NORTH);
-            winPanel.add(winLabel);
-        }
+        // Testar/felsöker ordningen av temp strängen.
+        // System.out.println(temp);
+
+        if (temp.equals("123456789101112131415")) {
+            winLabel.setText("YOU WIN!");
+            System.out.println("You win");
+        } else winLabel.setText("Let´s Puzzle!");
 
 
     }
 }
+
